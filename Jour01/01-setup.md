@@ -15,3 +15,5 @@ home.html.twig  ==>  Veut pouvoir utiliser emmet dans des fichiers de vue
 2. PHP Version 8.2
 3. Installer composer en ligne de commande
 4. Installer Symfony-cli en ligne de commande
+
+- !!!! L'installation dépend du système d'exploitation de la machine
