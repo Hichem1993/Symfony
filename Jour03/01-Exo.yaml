@@ -1,0 +1,56 @@
+# cas pratique
+
+#- créer un fichier exo.yaml
+#dans ce fichier vous voulez stocker les valeurs suivantes 
+
+
+#nom => "exo1"
+#notation 
+#    a => 5 points
+#    b => 6 points
+#    c => 9 points
+
+#enoncé => 
+#    lorem ipsum
+#    sed dolores
+
+#livraison
+#    email : toto@yahoo.fr
+#    formulaire : http://mon-formulaire.com
+
+
+nom: exo1
+
+notation:
+    a: 5 points
+    b: 6 points
+    c: 9 points
+
+enonce: >
+    lorem ipsum
+    sed dolores
+
+livraison:
+    email: toto@yahoo.fr
+    formulaire: http://mon-formulaire.com
+
+
+# commentaires
+# en yaml pas besoin de mettre de guillemets autour des textes (string)
+# pas besoin de mettre de virgule
+# par contre IL FAUT OBLIGATOIREMENT insére 4 espaces avant une clé d'un tableau association 
+# pas de = pour stocker une valeur dans une clé , c'est le : 
+# l'espace 
+# > chevron doit être ajouté SI le texte contient des sauts de ligne
+# c'est une sorte de TABLEAU 
+
+# Utiliser le fichier 01-exo.yaml pour remplir une page PHP
+# ==> Utiliser une librairie que l'on va telecharger via composer
+# recupérer le fichier .yaml / parcourir / transformer en tableau php classique
+# site internet : https://packagist.org/
+
+```
+
+# Commande : composer require symfony/yaml
+
+```
