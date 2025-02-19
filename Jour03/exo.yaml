@@ -49,8 +49,6 @@ livraison:
 # recupérer le fichier .yaml / parcourir / transformer en tableau php classique
 # site internet : https://packagist.org/
 
-```
+
 
 # Commande : composer require symfony/yaml
-
-```
