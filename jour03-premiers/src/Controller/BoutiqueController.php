@@ -22,7 +22,7 @@ class BoutiqueController extends AbstractController{
     #[Route("/panier" , name:"page_panier")]
     public function panier(){
         $data = [
-            "panier" => [
+            "paniers" => [
                 [ "id" => 2 , "nom" => "PS5" , "prix" => 500    ],
                 [ "id" => 3 , "nom" => "NintendoDS" , "prix" => 300 ]
             ]
