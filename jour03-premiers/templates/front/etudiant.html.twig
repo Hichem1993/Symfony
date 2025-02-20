@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etudiant</title>
+</head>
+<body>
+    <h1>Je suis la page étudiant</h1>
+    <ul>
+        <li>Nom : {{nom}}</li>
+        <li>Age : {{age}}</li>
+    </ul>
+    <h2>Compétences</h2>
+    <ul>
+        {% for competence in competences %}
+            <li> {{competence}} </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

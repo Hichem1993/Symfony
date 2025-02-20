@@ -1,0 +1,23 @@
+{% extends "front.html.twig" %}
+{# Appeler une fichier qui s'appelle front.html.twig qui contient le header et le footer de la notre page web #}
+
+{# Le contenu de ma page #}
+{% block contenu_page %}
+
+<h1>Le catalogue</h1>
+
+<section class="row">
+    {% for produit in produits %}
+        <div class="col-4">
+            <article class="card p-2">
+                <div class="car-body">
+                    <h2 class="card-title text-bleu-fonce"> {{produit.nom}} </h2>
+                    <p class="card-text">Prix : {{produit.prix}} Euros</p>
+                </div>
+            </article>
+        </div>
+    {% endfor %}
+</section>
+
+
+{% endblock %}
