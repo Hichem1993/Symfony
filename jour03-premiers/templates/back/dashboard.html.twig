@@ -5,21 +5,21 @@
 {# Le contenu de ma page #}
 {% block contenu_page %}
 
-        <h1 class="p-2">Bienvenue {{ users.nom }}</h1>
+    <h1 class="p-2">Bienvenue {{ users.nom }}</h1>
 
-        <section class="row p-2">
+    <section class="row p-2">
 
-            <p>Vous êtes {{ users.role }} et vous vous êtes connecté le {{ users.dt_connexion }}</p>    
-
-            <h2>Liste des produits en session</h2>
+        <p>Vous êtes {{ users.role }} et vous vous êtes connecté le {{ users.dt_connexion }}</p>    
+        {# Variable | filtre #}
+        <h2>Liste des {{sessions | length}} produits en session</h2>
             
-                <ul class="p-2">
-                    {% for session in sessions %}
-                        <li><b>Produit :</b> {{ session.nom }} - <b>Id :</b> {{ session.id }} - <b>PrixTTC :</b> {{ session.prix }}</li>
-                    {% endfor %}
-                </ul>
+            <ul class="p-2">
+                {% for session in sessions %}
+                    <li><b>Produit :</b> {{ session.nom }} - <b>Id :</b> {{ session.id }} - <b>PrixTTC :</b> {{ session.prix }}</li>
+                {% endfor %}
+            </ul>
             
 
-        </section>
+    </section>
 
 {% endblock %}
