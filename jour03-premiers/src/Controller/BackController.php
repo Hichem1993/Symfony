@@ -60,4 +60,38 @@ class BackController extends AbstractController{
         // dd($request->attributes->get("id"));  // Dump et die();
     }
 
+    #[Route("/gestion-users/{id}" , name:"page_gestion_users")]
+    public function gestionUsers(Request $request){
+        $data = [
+            "users" => [
+               [ "id" => 1 , "nom" => "ALain" , "age" => 22 , "role" => "admin" ],
+               [ "id" => 2 , "nom" => "Céline" , "age" => 45 , "role" => "rédacteur" ],
+               [ "id" => 3 , "nom" => "Zorro" , "age" => 18 , "role" => "rédacteur" ]
+            ]
+        ];
+
+        $id = $request->attributes->get("id");  // $_GET
+        $resultat = [];
+
+        foreach ($data["users"] as $user){
+            if($user["id"] == $id){
+                $resultat[] = $user;
+            }
+        }
+
+        if(count($resultat) == 0){
+            return $this->render("back/404.html.twig");
+        }
+        return $this->render("back/user.html.twig", $resultat[0]);
+
+    }
+
+
+    #[Route("/inscription" , name:"page_inscription")]
+    public function inscription (Request $request){
+
+        dump($request->request->get("email")); // $_POST["email"]
+        return $this->render("back/inscription.html.twig");
+    }
+
 }
