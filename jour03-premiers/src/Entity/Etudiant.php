@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
+use App\Repository\EtudiantRepository;
 use Doctrine\ORM\Mapping as ORM ;  // Le coeur de Doctrine  ==> Mapper
 
 
-#[ORM\Entity()]
+#[ORM\Entity(repositoryClass:EtudiantRepository::class)]
 class Etudiant{
 
     #[ORM\Id]

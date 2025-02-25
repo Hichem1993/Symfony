@@ -69,3 +69,25 @@
 1. Repository : Je souhaite modifier un profil etudiant insérer en BDD
       1. src/Repository
       2. Créer fichier EtudiantRepository.php
+      3. Créer la class EtudiantRepository
+      4. Liaison entre Entity Etudiant ET EtudiantRepository
+      5. Ajouter dans EntityEtudiant : `#[ORM\Entity(repositoryClass:EtudiantRepository::class)]`
+      6. Dans controller :
+            1. Recherche via `$etudiantRepository->findOneBy(["id"=>2]);`
+            2. Setter pour modifier la valeur
+            3. persist()
+            4. flush()
+
+
+## DELETE :
+1. Repository : Je souhaite de supprimer un profil etudiant insérer en BDD
+      1. src/Repository
+      2. Créer fichier EtudiantRepository.php
+      3. Créer la class EtudiantRepository
+      4. Liaison entre Entity Etudiant ET EtudiantRepository
+      5. Ajouter dans EntityEtudiant : `#[ORM\Entity(repositoryClass:EtudiantRepository::class)]`
+      6. Dans controller :
+            1. Recherche via `$etudiantRepository->findOneBy(["id"=>2]);`
+            2. Remove pour modifier la valeur
+            3. persist()
+            4. flush()

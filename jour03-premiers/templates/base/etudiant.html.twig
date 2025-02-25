@@ -1,0 +1,15 @@
+{% extends "front.html.twig" %}
+
+{% block contenu_page %}
+
+    <h1>Liste des étudiants :</h1>
+    <p><a href="{{path("page_ajouter_etudiant")}}" class="btn btn-danger">Ajouter une profil étudiant</a></p>
+    <ol>
+        {% for etudiant in etudiants %}
+            <li>
+                {{etudiant.prenom}} {{etudiant.nom}}, Age : {{etudiant.age}}
+            </li>
+        {% endfor %}
+    </ol>
+
+{% endblock %}
