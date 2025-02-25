@@ -27,6 +27,8 @@
       2. curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | sudo -E bash
       3. sudo apt install symfony-cli
 
+## Installation Symfony :
+1. symfony new --webapp my_project
 
 
 
