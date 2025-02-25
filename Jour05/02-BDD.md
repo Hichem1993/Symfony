@@ -56,6 +56,8 @@
                         1. Attention la commande doit etre exécuter dans le dossier jour03-premiers
                         2. `symfony console doctrine:migrations:migrate`    OU   `symfony console d:m:m`
 
+
+## INSERT :
 5. Inserer des données dans notre table :
       1. Modifier notre entité : Setter/Getter
       2. Ajouter une nouvelle Route/Méthode dans un Controller
@@ -91,3 +93,5 @@
             2. Remove pour modifier la valeur
             3. persist()
             4. flush()
+
+
