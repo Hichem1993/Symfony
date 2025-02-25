@@ -1,0 +1,32 @@
+{% extends "front.html.twig" %}
+
+{% block contenu_page %}
+
+    <h1>Dashboard</h1>
+    <table class="table table-striped table-hover text-center align-middle">
+        <tr>
+            <th style="width:5%">ID</th>
+            <th style="width:10%">Titre</th>
+            <th style="width:20%">Description</th>
+            <th style="width:15%">Auteur</th>
+            <th style="width:15%">Date de création</th>
+            <th style="width:20%">Image</th>
+            <th style="width:15%">Action</th>
+        </tr>
+        {% for article in articles %}
+            <tr>
+                <td style="width:5%">{{article.id}}</td>
+                <td style="width:10%">{{article.titre}}</td>
+                <td style="width:20%">{{article.description}}</td>
+                <td style="width:15%">{{article.auteur}}</td>
+                <td style="width:15%">{{article.dt_creation | format_datetime('short', 'none', locale: 'fr')}}</td>
+                <td style="width:20%"><img src="{{ asset(article.url_img) }}" class="card-img-top" alt="{{article.titre}}"></td>
+                <td style="width:15%" >
+                    <a href="{{ path('page_delete', {'id': article.id}) }}" class="bg-danger p-3 rounded-3 text-light text-decoration-none">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+{% endblock %}
