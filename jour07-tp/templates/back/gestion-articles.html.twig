@@ -1,0 +1,43 @@
+{% extends "front.html.twig" %}
+
+{% block title %}Gestions de Articles{% endblock %}
+
+
+{% block contenu_page %}
+    <h1>Gestion des {{ articles | length   }} articles </h1>
+
+    <a href="{{ path("page_add_article")}}" class="btn btn-primary">Ajouter un nouvel article</a>
+
+    <a href="{{ path("page_add_etudiant")}}" class="btn btn-info ms-3">Ajouter un profil étudiant</a>
+
+    <a href="{{ path("page_add_user")}}" class="btn btn-dark ms-3">Ajouter un user</a>
+
+    <table class="table table-striped align-middle">
+        <thead>
+            <tr>
+                <th>#id</th>
+                <th>titre</th>
+                <th>image</th>
+                <th>description</th>
+                <th>auteur</th>
+                <th>action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for article in articles %}
+                <tr>
+                    <td>{{article.id }}</td>
+                    <td>{{article.titre }}</td>
+                    <td><img src="{{ asset(article.url_img) }}" alt="{{article.titre }}" width="100" class="img-thumbnail"></td>
+                    <td>{{article.description }}</td>
+                    <td>{{article.auteur }}</td>
+                    <td>
+                        <a href="{{ path("page_delete_article" , { id : article.id })}}" class="btn btn-danger">
+                            supprimer l'article
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
