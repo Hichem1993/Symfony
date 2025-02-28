@@ -20,6 +20,10 @@ symfony console make:entity
 
 - Générer deux fichiers ==> src/Entity/Etudiant.php  (Propriété + getter et setter)
                         ==> src/Repository/EtudiantRepository.php  (Le code de base)
+```sh
+symfony console make:entity
+```
+
 
 
 2. Etape 2 : Création la Table Etudiant

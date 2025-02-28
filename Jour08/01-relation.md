@@ -66,3 +66,9 @@ article <===> categorie  (OneToMany - ManyToOne)
 article <===> auteur  (OneToMany - ManyToOne)
         ==> auteur peut rédiger PLUSIEURS article
         ==> article ne peut etre rédigé par 1 SEUL auteur
+
+
+## Objectif :
+1. créer un projet Symfony
+2. Créer une base de donnée
+3. créer un espace qui permet à une personne que ne sait pas coder de gérer ces concepts (CRUD)
