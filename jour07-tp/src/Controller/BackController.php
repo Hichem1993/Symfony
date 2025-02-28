@@ -164,5 +164,39 @@ class BackController extends AbstractController{
     }   
 
 
+    #[Route("gestion-articles-update/{id}" , name:"page_update_article")]
+    public function miseAjourArticle(EntityManagerInterface $em , ArticlesRepository $articleRepository , Request $request) {
+
+        // Récupérer l'article si il existe
+        $id= $request->attributes->get("id");
+        $article = $articleRepository->findOneBy(["id" => $id]);  // SELECT * FROM article WHERE id = :id
+
+        // Si il n'existe pas :
+        if(empty($article)){
+            return new Response("Aucun article trouvé");
+        }
+
+        // Si il existe (OK) : Afficher mon formulaire avec les données des article existant
+        $form = $this->createForm(ArticleType::class , $article);  // Créer un formulaire REMPLI par $article
+
+        // APRES
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            // UPDATE
+            // dd($article); // $article avec le handleRequest prendre les nouvelles données $_POST
+            $em->persist($article);
+            $em->flush();
+
+            return $this->redirectToRoute("page_gestion_article");
+        }
+
+        return $this->render("back/form_update_article.html.twig", [
+            "form" => $form->createView()
+        ]);
+
+    }
+
+
 
 }

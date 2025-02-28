@@ -19,8 +19,8 @@
                 <td style="width:10%">{{article.titre}}</td>
                 <td style="width:20%">{{article.description}}</td>
                 <td style="width:15%">{{article.auteur}}</td>
-                <td style="width:15%">{{article.dt_creation | format_datetime('short', 'none', locale: 'fr')}}</td>
-                <td style="width:20%"><img src="{{ asset(article.url_img) }}" class="card-img-top" alt="{{article.titre}}"></td>
+                <td style="width:15%">{{article.dtCreation | format_datetime('short', 'none', locale: 'fr')}}</td>
+                <td style="width:20%"><img src="{{ asset(article.urlImg) }}" class="card-img-top" alt="{{article.titre}}"></td>
                 <td style="width:15%" >
                     <a href="{{ path('page_delete', {'id': article.id}) }}" class="bg-danger p-3 rounded-3 text-light text-decoration-none">Delete</a>
                 </td>

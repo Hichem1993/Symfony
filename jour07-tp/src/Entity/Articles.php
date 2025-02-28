@@ -63,7 +63,7 @@ class Articles{
     /**
      * Get the value of url_img
      */ 
-    public function getUrl_img()
+    public function getUrlImg()
     {
         return $this->url_img;
     }
@@ -73,7 +73,7 @@ class Articles{
      *
      * @return  self
      */ 
-    public function setUrl_img($url_img)
+    public function setUrlImg($url_img)
     {
         $this->url_img = $url_img;
 
@@ -143,7 +143,7 @@ class Articles{
     /**
      * Get the value of dt_creation
      */ 
-    public function getDt_creation()
+    public function getDtCreation()
     {
         return $this->dt_creation;
     }
@@ -153,7 +153,7 @@ class Articles{
      *
      * @return  self
      */ 
-    public function setDt_creation($dt_creation)
+    public function setDtCreation($dt_creation)
     {
         $this->dt_creation = $dt_creation;
 

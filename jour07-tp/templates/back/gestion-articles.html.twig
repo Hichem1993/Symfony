@@ -28,12 +28,15 @@
                 <tr>
                     <td>{{article.id }}</td>
                     <td>{{article.titre }}</td>
-                    <td><img src="{{ asset(article.url_img) }}" alt="{{article.titre }}" width="100" class="img-thumbnail"></td>
+                    <td><img src="{{ asset(article.urlImg) }}" alt="{{article.titre }}" width="100" class="img-thumbnail"></td>
                     <td>{{article.description }}</td>
                     <td>{{article.auteur }}</td>
                     <td>
+                        <a href="{{ path("page_update_article" , { id : article.id })}}" class="btn btn-info">
+                            Modifier l'article
+                        </a>
                         <a href="{{ path("page_delete_article" , { id : article.id })}}" class="btn btn-danger">
-                            supprimer l'article
+                            Supprimer l'article
                         </a>
                     </td>
                 </tr>
