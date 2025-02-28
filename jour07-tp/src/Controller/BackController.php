@@ -89,7 +89,8 @@ class BackController extends AbstractController{
                      ->setDescription($data["description"])
                      ->setAuteur($data["auteur"])
                      ->setDuree($data["duree"])
-                     ->setUrl_img($data["url_img"]);
+                     ->setUrl_img($data["url_img"])
+                     ->setDt_creation($data["dt_creation"]);
             
             $em->persist($articles);
             $em->flush();

@@ -20,8 +20,8 @@ class UserType extends AbstractType{
                 ->add("cv" , TextareaType::class)
                 ->add("role", ChoiceType::class , [
                     "choices" => [
-                        "admin" => "admin",
-                        "redacteur" => "redacteur"
+                        "Admin" => "Admin",
+                        "Redacteur" => "Redacteur"
                     ],
                     "placeholder" => "Veuillez choisir un rôle"
                 ])
