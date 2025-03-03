@@ -19,6 +19,9 @@ class AuteurFixtures extends Fixture
             $auteur->setNom($faker->lastName());
 
             $manager->persist($auteur);
+
+            // Cette ligne va nous permettre d'utiliser une entité dans une autre fixture
+            $this->addReference("auteur_$i" , $auteur);
          }
             $manager->flush();
     }
