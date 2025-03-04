@@ -23,6 +23,9 @@ class RecetteFixture extends Fixture implements DependentFixtureInterface
             $recette->setAuteur($this->getReference("auteur_" . $faker->numberBetween(0,49), Auteur::class));
 
             $manager->persist($recette);
+
+            // Cette ligne va nous permettre d'utiliser une entité dans une autre fixture
+            $this->addReference("recette_$i" , $recette);
         }
             $manager->flush();
     }

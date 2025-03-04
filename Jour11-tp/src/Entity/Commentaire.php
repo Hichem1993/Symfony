@@ -27,7 +27,10 @@ class Commentaire
     private ?\DateTimeInterface $dt_creation = null;
 
     #[ORM\ManyToOne(inversedBy: 'commentaires')]
-    private ?auteur $auteur = null;
+    private ?Auteur $auteur = null;
+
+    #[ORM\ManyToOne(inversedBy: 'commentaires')]
+    private ?Recette $recette = null;
 
     public function getId(): ?int
     {
@@ -90,6 +93,18 @@ class Commentaire
     public function setAuteur(?auteur $auteur): static
     {
         $this->auteur = $auteur;
+
+        return $this;
+    }
+
+    public function getRecette(): ?recette
+    {
+        return $this->recette;
+    }
+
+    public function setRecette(?recette $recette): static
+    {
+        $this->recette = $recette;
 
         return $this;
     }

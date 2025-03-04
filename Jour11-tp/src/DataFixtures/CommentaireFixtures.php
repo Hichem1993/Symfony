@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Auteur;
 use App\Entity\Commentaire;
+use App\Entity\Recette;
 use Faker\Factory;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -21,6 +22,7 @@ class CommentaireFixtures extends Fixture implements DependentFixtureInterface
             $commentaire->setMessage($faker->realText(60));
             $commentaire->setDtCreation($faker->dateTimeThisCentury());
             $commentaire->setAuteur($this->getReference("auteur_" . $faker->numberBetween(0,49), Auteur::class));
+            $commentaire->setRecette($this->getReference("recette_" . $faker->numberBetween(0,29), Recette::class));
 
             $manager->persist($commentaire);
          }
@@ -31,7 +33,8 @@ class CommentaireFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return[
-            AuteurFixtures::class
+            AuteurFixtures::class,
+            RecetteFixture::class
         ];
     }
     
