@@ -1,19 +1,22 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
 {% block title %}Recette index{% endblock %}
 
-{% block body %}
+{% block body_back %}
     <h1>Recette index</h1>
 
-    <table class="table">
+        <a href="{{ path('app_recette_new') }}" class="btn btn-primary my-3 p-1">Créer une nouvelle recette</a>
+
+
+    <table class="table align-middle">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Titre</th>
                 <th>Description</th>
                 <th>Prix</th>
-                <th>Dt_creation</th>
-                <th>actions</th>
+                <th>Créé le</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -21,12 +24,12 @@
             <tr>
                 <td>{{ recette.id }}</td>
                 <td>{{ recette.titre }}</td>
-                <td>{{ recette.description }}</td>
-                <td>{{ recette.prix }}</td>
-                <td>{{ recette.dtCreation ? recette.dtCreation|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_recette_show', {'id': recette.id}) }}">show</a>
-                    <a href="{{ path('app_recette_edit', {'id': recette.id}) }}">edit</a>
+                <td>{{ recette.description | more(10) }}</td>
+                <td style="width:120px" class="text-end" >{{ recette.prix | info_prix() }}</td>
+                <td width="100">{{ recette.dtCreation ? recette.dtCreation|date('Y-m-d')}}</td>
+                <td width="100">
+                    <a href="{{ path('app_recette_edit', {'id': recette.id}) }}" class="btn btn-warning btn-sm mx-2"><i class="bi bi-pencil-square"></i></a>
+                    {{ include('recette/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
@@ -37,5 +40,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_recette_new') }}">Create new</a>
 {% endblock %}
