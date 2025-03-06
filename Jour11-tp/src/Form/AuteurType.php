@@ -16,7 +16,9 @@ class AuteurType extends AbstractType
             ->add('email', null , [
                 "data" => empty($options["auteur"]) ? "" : $options["auteur"]->getEmail()
             ])
-            ->add('passwordPlainText')
+            ->add('passwordPlainText', null , [
+                "required" => $options["password_obligatoire"]
+            ])
             ->add('roles', ChoiceType::class, [
                 "choices" => [
                     'ROLE_ADMIN' => "ROLE_ADMIN",
@@ -32,7 +34,8 @@ class AuteurType extends AbstractType
     {
         $resolver->setDefaults([
            // 'data_class' => Auteur::class,
-            "auteur" => []
+            "auteur" => [],
+            "password_obligatoire" => true
         ]);
     }
 }

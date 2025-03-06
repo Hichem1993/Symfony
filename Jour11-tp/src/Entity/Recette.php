@@ -38,6 +38,9 @@ class Recette
     #[ORM\OneToMany(targetEntity: Commentaire::class, mappedBy: 'recette')]
     private Collection $commentaires;
 
+    #[ORM\Column(nullable:true)]
+    private ?string $image = null;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();

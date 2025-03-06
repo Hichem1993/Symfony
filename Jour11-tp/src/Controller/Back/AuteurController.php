@@ -5,6 +5,7 @@ namespace App\Controller\Back;
 use App\Entity\Auteur;
 use App\Form\AuteurType;
 use App\Repository\AuteurRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -63,13 +64,40 @@ final class AuteurController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_auteur_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Auteur $auteur, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Auteur $auteur, EntityManagerInterface $entityManager, AuteurRepository $auteurRepository, UserPasswordHasherInterface $hasher): Response
     {
         // dd($auteur);
-        $form = $this->createForm(AuteurType::class, null, ["auteur" => $auteur]);
+        $form = $this->createForm(AuteurType::class, null, [
+            "auteur" => $auteur,
+            "password_obligatoire" => false
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // $entityManager->flush();
+
+            $data = $form->getData();
+            $id = $request->attributes->get("id");
+            /** @var Auteur $auteur */
+            $auteur = $auteurRepository->findOneBy(["id" => $id]);
+
+            // Effectuer l'UPDATE :
+            if (empty($data["passwordPlainText"])) {
+
+                // Sans changement de password
+                $auteur->setEmail($data["email"])
+                       ->setRoles([$data["roles"]]);
+
+            }else {
+
+                // Avec changement password
+                $auteur->setEmail($data["email"])
+                       ->setRoles([$data["roles"]])
+                       ->setPassword($hasher->hashPassword($auteur, $data["passwordPlainText"] ));
+
+            }
+
+            $entityManager->persist($auteur);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_auteur_index', [], Response::HTTP_SEE_OTHER);
