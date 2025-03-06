@@ -21,7 +21,7 @@ class CommentaireFixtures extends Fixture implements DependentFixtureInterface
             $commentaire->setSujet($faker->words(5, true));
             $commentaire->setMessage($faker->realText(60));
             $commentaire->setDtCreation($faker->dateTimeThisCentury());
-            $commentaire->setAuteur($this->getReference("auteur_" . $faker->numberBetween(0,49), Auteur::class));
+            $commentaire->setAuteur($this->getReference("auteur_" . $faker->numberBetween(0,1), Auteur::class));
             $commentaire->setRecette($this->getReference("recette_" . $faker->numberBetween(0,29), Recette::class));
 
             $manager->persist($commentaire);

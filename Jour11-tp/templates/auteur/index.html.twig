@@ -7,13 +7,12 @@
 
     <a href="{{ path('app_auteur_new') }}" class="btn btn-primary my-3 p-1">Créer un nouveau auteur</a>
 
-    <table class="table">
+    <table class="table align-middle">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Email</th>
-                <th>Prenom</th>
-                <th>Nom</th>
+                <th>Roles</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -22,8 +21,11 @@
             <tr>
                 <td>{{ auteur.id }}</td>
                 <td>{{ auteur.email }}</td>
-                <td>{{ auteur.prenom }}</td>
-                <td>{{ auteur.nom }}</td>
+                <td>
+                    {% for role in auteur.roles %}
+                        {{role}}
+                    {% endfor %}
+                </td>
                 <td>
                     <a href="{{ path('app_auteur_edit', {'id': auteur.id}) }}" class="btn btn-warning btn-sm mx-2"><i class="bi bi-pencil-square"></i></a>
 

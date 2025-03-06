@@ -2,47 +2,34 @@
 
 namespace App\Entity;
 
-use App\Entity\Recette;
-use App\Entity\Commentaire;
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\AuteurRepository;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: AuteurRepository::class)]
-class Auteur
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+class Auteur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 180)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $prenom = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $nom = null;
+    /**
+     * @var list<string> The user roles
+     */
+    #[ORM\Column]
+    private array $roles = [];
 
     /**
-     * @var Collection<int, Commentaire>
+     * @var string The hashed password
      */
-    #[ORM\OneToMany(targetEntity: Commentaire::class, mappedBy: 'auteur')]
-    private Collection $commentaires;
-
-    /**
-     * @var Collection<int, Recette>
-     */
-    #[ORM\OneToMany(targetEntity: Recette::class, mappedBy: 'auteur')]
-    private Collection $recettes;
-
-    public function __construct()
-    {
-        $this->commentaires = new ArrayCollection();
-        $this->recettes = new ArrayCollection();
-    }
+    #[ORM\Column]
+    private ?string $password = null;
 
     public function getId(): ?int
     {
@@ -61,87 +48,61 @@ class Auteur
         return $this;
     }
 
-    public function getPrenom(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
     {
-        return $this->prenom;
+        return (string) $this->email;
     }
 
-    public function setPrenom(string $prenom): static
+    /**
+     * @see UserInterface
+     *
+     * @return list<string>
+     */
+    public function getRoles(): array
     {
-        $this->prenom = $prenom;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
 
-        return $this;
+        return array_unique($roles);
     }
 
-    public function getNom(): ?string
+    /**
+     * @param list<string> $roles
+     */
+    public function setRoles(array $roles): static
     {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): static
-    {
-        $this->nom = $nom;
+        $this->roles = $roles;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Commentaire>
+     * @see PasswordAuthenticatedUserInterface
      */
-    public function getCommentaires(): Collection
+    public function getPassword(): ?string
     {
-        return $this->commentaires;
+        return $this->password;
     }
 
-    public function addCommentaire(Commentaire $commentaire): static
+    public function setPassword(string $password): static
     {
-        if (!$this->commentaires->contains($commentaire)) {
-            $this->commentaires->add($commentaire);
-            $commentaire->setAuteur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommentaire(Commentaire $commentaire): static
-    {
-        if ($this->commentaires->removeElement($commentaire)) {
-            // set the owning side to null (unless already changed)
-            if ($commentaire->getAuteur() === $this) {
-                $commentaire->setAuteur(null);
-            }
-        }
+        $this->password = $password;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Recette>
+     * @see UserInterface
      */
-    public function getRecettes(): Collection
+    public function eraseCredentials(): void
     {
-        return $this->recettes;
-    }
-
-    public function addRecette(Recette $recette): static
-    {
-        if (!$this->recettes->contains($recette)) {
-            $this->recettes->add($recette);
-            $recette->setAuteur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRecette(Recette $recette): static
-    {
-        if ($this->recettes->removeElement($recette)) {
-            // set the owning side to null (unless already changed)
-            if ($recette->getAuteur() === $this) {
-                $recette->setAuteur(null);
-            }
-        }
-
-        return $this;
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }

@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/auteur')]
@@ -23,13 +24,24 @@ final class AuteurController extends AbstractController
     }
 
     #[Route('/new', name: 'app_auteur_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager , UserPasswordHasherInterface $hasher): Response
     {
+
         $auteur = new Auteur();
-        $form = $this->createForm(AuteurType::class, $auteur);
+        $form = $this->createForm(AuteurType::class);
         $form->handleRequest($request);
 
+        
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $data = $form->getData();
+            
+            $auteur->setEmail($data["email"])
+                   ->setPassword(
+                    $hasher->hashPassword($auteur , $data['passwordPlainText'])
+                   )
+                   ->setRoles([$data["roles"]]) ;
+
             $entityManager->persist($auteur);
             $entityManager->flush();
 
@@ -38,7 +50,7 @@ final class AuteurController extends AbstractController
 
         return $this->render('auteur/new.html.twig', [
             'auteur' => $auteur,
-            'form' => $form,
+            'form' => $form
         ]);
     }
 
@@ -53,7 +65,8 @@ final class AuteurController extends AbstractController
     #[Route('/{id}/edit', name: 'app_auteur_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Auteur $auteur, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(AuteurType::class, $auteur);
+        // dd($auteur);
+        $form = $this->createForm(AuteurType::class, null, ["auteur" => $auteur]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

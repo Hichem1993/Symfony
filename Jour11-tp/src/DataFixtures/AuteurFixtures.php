@@ -6,23 +6,34 @@ use Faker\Factory;
 use App\Entity\Auteur;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AuteurFixtures extends Fixture
 {
-    public function load(ObjectManager $manager): void
-    {
-         for($i = 0; $i < 50 ; $i++){
-            $faker = Factory::create();
+
+   public function __construct(private UserPasswordHasherInterface $hasher)
+   {
+      
+   }
+
+
+   public function load(ObjectManager $manager): void
+   {
+         $users = [
+            ["email" => "admin@yahoo.fr" , "role" => "ROLE_ADMIN", "password" => "demo" ],
+            ["email" => "redacteur@yahoo.fr" , "role" => "ROLE_REDACTEUR", "password" => "demo" ]
+         ];
+
+         foreach ($users as $k => $user) {
             $auteur = new Auteur();
-            $auteur->setEmail($faker->email());
-            $auteur->setPrenom($faker->firstName());
-            $auteur->setNom($faker->lastName());
-
+            $auteur->setEmail($user["email"])
+                   ->setPassword(
+                     $this->hasher->hashPassword($auteur , $user["password"])  // Il faut obligatoirement HASHE le password stocké en BDD
+                   )
+                   ->setRoles([$user["role"]]);
             $manager->persist($auteur);
-
-            // Cette ligne va nous permettre d'utiliser une entité dans une autre fixture
-            $this->addReference("auteur_$i" , $auteur);
+            $this->addReference("auteur_$k" , $auteur);
          }
-            $manager->flush();
-    }
+         $manager->flush();
+   }
 }
